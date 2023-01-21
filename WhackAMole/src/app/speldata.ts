@@ -12,11 +12,6 @@ export type buttonState = {
   disableButton: boolean;
 };
 
-//Används den här?
-export type Mole = {
-  moleInTheHole: boolean;
-};
-
 export type scoreState = {
   points: number;
 };
@@ -34,7 +29,7 @@ export type moleStatus = {
   howManyMoles: number;
 };
 
-//Vad kan jag skriva ist för Array<>
+//Vad kan jag skriva ist för Array<>?
 export type moleHoleState = Array<{
   id: number;
   available: boolean;

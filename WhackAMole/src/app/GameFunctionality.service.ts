@@ -80,6 +80,7 @@ export class GameFunctionality {
     }
   }
 
+  //Global variable
   randomInterval: any;
 
   //Method that handles the countdown

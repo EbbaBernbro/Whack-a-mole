@@ -1,11 +1,9 @@
 import { Component, Input } from '@angular/core';
-import { Mole } from '../speldata';
 import { GameFunctionality } from '../GameFunctionality.service';
 import { moleHoleState } from '../speldata';
 
 @Component({
   selector: 'app-playfield',
-  //under div .hole: <span class="objectObject"> {{ tepVar }}</span>
   template: `
     <div class="backgroundField">
       <ng-container *ngFor="let displayedHoles of renderHoles; let i = index">
@@ -24,8 +22,7 @@ import { moleHoleState } from '../speldata';
   styleUrls: ['./playfield.component.css'],
 })
 export class PlayfieldComponent {
-  //Klassattribut av datatyp för senare rendering? Bara en boolean?
-  @Input() moles: Mole[] = []; //Denna används inte i nuläget
+  //Klassattribut av datatyp för rendering
   renderHoles: moleHoleState = [];
 
   //construktor som tar imot service
