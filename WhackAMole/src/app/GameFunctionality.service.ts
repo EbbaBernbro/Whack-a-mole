@@ -6,7 +6,6 @@ import {
   initilizeTimer,
   moleHoleState,
   scoreState,
-  intervalState,
   endOfGameState,
   finalScore,
   moleStatus,
@@ -30,9 +29,6 @@ export class GameFunctionality {
   //END OF GAME REACHED
   gameOver: endOfGameState = { gameOver: 'GAME OVER!' };
   finalScore: finalScore = { scoreMessage: 'Your final score is:' };
-
-  //Interval test ANVÄNDS EJ TA BORT
-  timeOut: intervalState = { timeOut: 0 };
 
   //HOLE OBJECTS
   moleHoles: moleHoleState = [
@@ -77,40 +73,33 @@ export class GameFunctionality {
     }
   }
 
+  //Method to reset score
   resetScore() {
     if (this.points.points > 0) {
       this.points.points = 0;
     }
   }
 
+  randomInterval: any;
+
   //Method that handles the countdown
   runCountdown() {
     let gameTimer = setInterval(() => {
       this.timer.timer = this.timer.timer - 1;
 
-      // let y = Math.floor(Math.random() * 40000 + 1000);
-      // let moleInt = setInterval(() => {
-
-      // }, y);
-      //this.showMoleAtRandomTime();
-
-      if (this.moleCounter.howManyMoles <= 2) {
-        console.log('if kollas');
-        this.moleInRandomHole(this.moleHoles);
-      }
+      this.showMoleAtRandomInterval();
 
       if (this.timer.timer === 0) {
-        console.log('Vi har nått 0');
         clearInterval(gameTimer);
-        alert('Ta en titt på din score innan den försvinner');
+        clearInterval(this.randomInterval);
         this.clearGame();
       }
     }, 1000);
   }
 
+  //When time is out, clears HUD for new game
   clearGame() {
     setTimeout(() => {
-      this.resetTimer();
       this.resetScore();
       this.disableButton.disableButton = false;
     }, 3000);
@@ -118,35 +107,17 @@ export class GameFunctionality {
 
   //Method that checks if the timer has finished
   startGame() {
-    console.log('startGame');
-    // if (this.timer.timer === 0) {
-    //   this.disableButton.disableButton = false;
-    // } else {
+    this.resetTimer();
     this.runCountdown();
     this.disableButton.disableButton = true;
   }
 
-  //V.1
-  randomHole() {
-    let holeArray = this.moleHoles;
-    const x = Math.floor(Math.random() * holeArray.length);
-    const randomHole = this.moleHoles[x];
-    randomHole.available = true;
-
-    let y = Math.floor(Math.random() * 4000 + 1000);
-    const timerId = setInterval(this.randomHole, y);
-
-    console.log(randomHole);
-  }
-
-  //V.2
+  //Generates a random hole for a mole to pop up in
   moleInRandomHole(moleHoles: moleHoleState) {
-    console.log('Nu körs mole- Generatorn aka random');
     let i = Math.floor(Math.random() * moleHoles.length);
     let showMole = moleHoles[i];
 
     if ((showMole.available = true)) {
-      this.moleCounter.howManyMoles++;
       setTimeout(() => {
         showMole.available = false;
         this.moleCounter.howManyMoles--;
@@ -155,34 +126,21 @@ export class GameFunctionality {
     console.log(showMole);
   }
 
-  //startTimer method calls this one
-  showMoleAtRandomTime() {
-    // console.log('showMoleAtRandomTime');
-    let y = Math.floor(Math.random() * 4000 + 1000);
-
-    ////////
-    //slumptal som hoppar över setInterval?
-    setInterval(() => {
-      this.moleInRandomHole(this.moleHoles);
-    }, 1000); //1000 ist för y
-
-    //()=>{}
+  showMoleAtRandomInterval() {
+    let randomNumber = Math.floor(Math.random() * (4000 - 1000) + 1000);
+    this.randomInterval = setInterval(() => {
+      if (this.moleCounter.howManyMoles <= 2 && this.timer.timer != 0) {
+        this.moleInRandomHole(this.moleHoles);
+        this.moleCounter.howManyMoles++;
+      }
+    }, randomNumber);
   }
 
-  nyFunktion() {
-    //this.resetTimer();
-    //this.resetScore();
-    this.startGame();
-    //this.moleInRandomHole(this.moleHoles);
-  }
-
+  //When user whack a mole
   onMoleClick(id: number) {
     if (this.moleHoles[id].available) {
       this.removeMole(id);
       this.points.points++;
-      //this.moleCounter.howManyMoles--;
-      // vad ska vara i ()?
-      //clearTimeout();
     }
   }
 

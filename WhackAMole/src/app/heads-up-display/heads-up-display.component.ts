@@ -13,19 +13,27 @@ import {
   selector: 'app-heads-up-display',
   template: `
     <h2>Time remaining: {{ timer.timer }}</h2>
-    <span>HOW MANY MOLES: {{ moleCounter.howManyMoles }}</span>
     <h2>Score: {{ points.points }}</h2>
 
     <button
       type="button"
-      class="btn btn-success btn-lg"
+      class="btn btn-lg"
       (click)="onBtnClick()"
       [disabled]="disableButton.disableButton"
     >
       Start Game
     </button>
   `,
-  styles: [``],
+  styles: [
+    `
+      .btn {
+        margin-top: 2rem;
+        text-transform: uppercase;
+        font-weight: bold;
+        background-color: rgb(111, 167, 111);
+      }
+    `,
+  ],
 })
 export class HeadsUpDisplayComponent {
   //TIMER
@@ -47,17 +55,18 @@ export class HeadsUpDisplayComponent {
     this.moleCounter = this._GameService.moleCounter;
   }
 
-  //Method to initilize the timer
-  newGame() {
-    this._GameService.resetTimer();
-  }
-  //Method that handles the countdown
-  startTimer() {
-    this._GameService.runCountdown();
-  }
+  // <span>HOW MANY MOLES: {{ moleCounter.howManyMoles }}</span>
+
+  // //Method to initilize the timer
+  // newGame() {
+  //   this._GameService.resetTimer(); //Varför e dessa här??
+  // }
+  // //Method that handles the countdown
+  // startTimer() {
+  //   this._GameService.runCountdown();
+  // }
 
   onBtnClick() {
-    //this._GameService.randomHole();
-    this._GameService.nyFunktion();
+    this._GameService.startGame();
   }
 }

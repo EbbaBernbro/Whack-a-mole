@@ -7,10 +7,10 @@ import { moleHoleState } from '../speldata';
   selector: 'app-playfield',
   //under div .hole: <span class="objectObject"> {{ tepVar }}</span>
   template: `
-    <div class="field">
-      <ng-container class="" *ngFor="let tepVar of renderHoles; let i = index">
+    <div class="backgroundField">
+      <ng-container *ngFor="let displayedHoles of renderHoles; let i = index">
         <div class="hole">
-          <ng-container *ngIf="tepVar.available">
+          <ng-container *ngIf="displayedHoles.available">
             <img
               class="mole"
               (click)="onMoleWhack(i)"
@@ -23,7 +23,6 @@ import { moleHoleState } from '../speldata';
   `,
   styleUrls: ['./playfield.component.css'],
 })
-//^Det är {{ attribut }} som displayar [object obejct]  Hur får jag bort det?^
 export class PlayfieldComponent {
   //Klassattribut av datatyp för senare rendering? Bara en boolean?
   @Input() moles: Mole[] = []; //Denna används inte i nuläget

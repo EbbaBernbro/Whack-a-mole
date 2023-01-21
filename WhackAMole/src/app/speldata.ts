@@ -29,17 +29,7 @@ export type finalScore = {
   scoreMessage: string;
 };
 
-//bara test till min setInterval
-export type intervalState = {
-  timeOut: number;
-};
-
-//To keep track of the id nbr att whacked mole??
-// export type idOfWhacked = Array<{
-//   id: number;
-// }>;
-
-//Eller ska det vara en variabel?
+//Used in code to keep track of number of moles out at playfield
 export type moleStatus = {
   howManyMoles: number;
 };

@@ -1,4 +1,4 @@
-.field {
+.backgroundField {
   height: 500px;
   width: 500px;
   display: grid;
@@ -26,7 +26,7 @@ img {
 
 .mole {
   position: absolute;
-  width: 70%;
+  width: 85%;
   left: 50%;
   transform: translateX(-50%);
   bottom: 0;
