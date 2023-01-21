@@ -1,61 +1,63 @@
-import { Component, OnInit, Input } from '@angular/core';
-//import { timer } from 'rxjs';
+import { Component } from '@angular/core';
+
+import { GameFunctionality } from '../GameFunctionality.service';
+import {
+  buttonState,
+  counterState,
+  initilizeTimer,
+  scoreState,
+  moleStatus,
+} from '../speldata';
 
 @Component({
   selector: 'app-heads-up-display',
   template: `
-    {{ timer }}
+    <h2>Time remaining: {{ timer.timer }}</h2>
+    <span>HOW MANY MOLES: {{ moleCounter.howManyMoles }}</span>
+    <h2>Score: {{ points.points }}</h2>
 
     <button
       type="button"
-      class="btn btn-primary btn-lg"
+      class="btn btn-success btn-lg"
       (click)="onBtnClick()"
-      [disabled]="disableButton"
+      [disabled]="disableButton.disableButton"
     >
-      Play
+      Start Game
     </button>
   `,
   styles: [``],
 })
-//007 youtube nedan
-//export class HeadsUpDisplayComponent implements OnInit {
 export class HeadsUpDisplayComponent {
-  //export class HeadsUpDisplayComponent {
-  // ngOnInit(): void {
-  //   this.startTimer();
-  // }
+  //TIMER
+  init: initilizeTimer = { init: 60 };
+  timer: counterState = { timer: 60 };
+  disableButton: buttonState = { disableButton: false };
 
-  @Input() init: number = 10;
-  public timer: number = 10;
-  public disableButton: boolean = false;
+  //TA BORT SEDAN
+  moleCounter: moleStatus = { howManyMoles: 0 };
 
-  constructor() {}
+  //SCORE: POINTS++
+  points: scoreState = { points: 0 };
+
+  constructor(private _GameService: GameFunctionality) {
+    this.init = this._GameService.init;
+    this.timer = this._GameService.timer;
+    this.disableButton = this._GameService.disableButton;
+    this.points = this._GameService.points;
+    this.moleCounter = this._GameService.moleCounter;
+  }
+
   //Method to initilize the timer
-  resetTimer() {
-    if (this.init && this.init > 0) {
-      this.timer = this.init;
-    }
+  newGame() {
+    this._GameService.resetTimer();
   }
   //Method that handles the countdown
-  runCountdown() {
-    setTimeout(() => {
-      this.timer = this.timer - 1;
-      this.counter();
-    }, 1000);
-  }
-
-  //Method that checks if the timer has finished
-  counter() {
-    if (this.timer === 0) {
-      this.disableButton = false;
-      this.resetTimer();
-    } else {
-      this.runCountdown();
-      this.disableButton = true;
-    }
+  startTimer() {
+    this._GameService.runCountdown();
   }
 
   onBtnClick() {
-    this.counter();
+    //this._GameService.randomHole();
+    this._GameService.nyFunktion();
   }
 }

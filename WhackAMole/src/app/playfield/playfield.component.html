@@ -1,1 +1,10 @@
-<p>playfield works!</p>
+<!-- <button type="button" class="btn btn-danger btn-lg" (click)="onClick()">
+  Mole
+</button> -->
+
+<div class="field">
+  <ng-container *ngFor="let hole of holes; let i = index">
+    <div class="hole">{{ hole }}</div>
+  </ng-container>
+</div>
+<img src="" 
