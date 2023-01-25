@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { timeout } from 'rxjs';
 import {
   buttonState,
   counterState,
@@ -124,7 +123,6 @@ export class GameFunctionality {
         this.moleCounter.howManyMoles--;
       }, 4000);
     }
-    console.log(showMole);
   }
 
   showMoleAtRandomInterval() {
@@ -146,7 +144,6 @@ export class GameFunctionality {
   }
 
   removeMole(id: number) {
-    console.log('Nu körs removeMole');
     this.moleHoles[id].available = false;
   }
 }

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { GameFunctionality } from '../GameFunctionality.service';
 import { moleHoleState } from '../speldata';
 
